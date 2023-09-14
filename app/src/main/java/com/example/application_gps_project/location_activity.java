@@ -7,6 +7,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.icu.text.DecimalFormat;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -139,6 +140,12 @@ public class location_activity extends AppCompatActivity implements LocationList
         if(sensorEvent.sensor == mStepCounter){
             stepCounter = (int) sensorEvent.values[0];
             binding.TVsteper.setText(String.valueOf(stepCounter));
+            double stepLengthMeters = 0.0007; // Długość kroku w metrach
+            double distance = stepCounter * stepLengthMeters;
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+
+            binding.TVdistance.setText(String.valueOf(decimalFormat.format(distance)));
+
         }
     }
 
