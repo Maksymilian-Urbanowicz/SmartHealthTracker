@@ -3,6 +3,10 @@ package com.example.application_gps_project;
 import android.Manifest;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -21,6 +25,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,18 +34,22 @@ import com.example.application_gps_project.databinding.ActivityLocationBinding;
 import java.util.List;
 import java.util.Locale;
 
-public class location_activity extends AppCompatActivity implements LocationListener {
+public class location_activity extends AppCompatActivity implements LocationListener, SensorEventListener {
 
     private ActivityLocationBinding binding;
     LocationManager locationManager;
+    private SensorManager sensorManager;
+    private Sensor mStepCounter;
+    private boolean isCountrtSensorPresent;
+    private int stepCounter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         binding = ActivityLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        getStepler();
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(location_activity.this, new String[]{
                     Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
@@ -55,6 +64,18 @@ public class location_activity extends AppCompatActivity implements LocationList
 
             }
         });
+    }
+
+    public void getStepler(){
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
+            mStepCounter = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isCountrtSensorPresent = true;
+        }else{
+            binding.TVsteper.setText("Counter Sensor is not Present");
+            isCountrtSensorPresent=false;
+        }
     }
 
     public void getLocation () {
@@ -111,5 +132,37 @@ public class location_activity extends AppCompatActivity implements LocationList
     @Override
     public void onProviderDisabled(@NonNull String provider) {
         LocationListener.super.onProviderDisabled(provider);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        if(sensorEvent.sensor == mStepCounter){
+            stepCounter = (int) sensorEvent.values[0];
+            binding.TVsteper.setText(String.valueOf(stepCounter));
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
+            sensorManager.registerListener(this, mStepCounter, sensorManager.SENSOR_DELAY_NORMAL);
+
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)!=null){
+            sensorManager.unregisterListener(this, mStepCounter);
+
+        }
+
     }
 }
