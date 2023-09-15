@@ -25,6 +25,12 @@
             android:layout_height="wrap_content"
             android:text="GET LOCATION" />
 
+        <Button
+            android:id="@+id/btnMaps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GO TO MAPS" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
