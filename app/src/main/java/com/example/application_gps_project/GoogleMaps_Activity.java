@@ -105,7 +105,23 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
                     //mMap.addMarker(new MarkerOptions().position(markerPosition).title("Current location marker"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerPosition, zoomLevel));
 
+                    FloatingActionButton FAB_ShareLocation = findViewById(R.id.FAB_ShareLocation);
+                    FAB_ShareLocation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            // Tworzymy link URL na podstawie współrzędnych
 
+                            String locationUrl = "https://maps.google.com/?q=" + String.valueOf(latitude) + "," + String.valueOf(longitude);
+
+                            // Tworzymy Intencję do udostępnienia linku URL
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("text/plain");
+                            intent.putExtra(Intent.EXTRA_TEXT, locationUrl);
+
+                            // Uruchamiamy menu systemowe do udostępniania
+                            startActivity(Intent.createChooser(intent, "Udostępnij lokalizację"));
+                        }
+                    });
 
                 }
             }).addOnFailureListener(this, e -> {
