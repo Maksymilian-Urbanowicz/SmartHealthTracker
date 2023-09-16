@@ -2,6 +2,7 @@ package com.example.application_gps_project;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,8 +29,8 @@ import com.example.application_gps_project.databinding.ActivityLocationBinding;
 import java.util.List;
 import java.util.Locale;
 
-public class location_activity extends AppCompatActivity implements LocationListener, SensorEventListener {
-
+public class location_activity extends AppCompatActivity implements  LocationListener, SensorEventListener { //
+    SharedPreferences sharedPreferences;
     private ActivityLocationBinding binding;
     LocationManager locationManager;
     private SensorManager sensorManager;
@@ -43,7 +44,10 @@ public class location_activity extends AppCompatActivity implements LocationList
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         binding = ActivityLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         getStepler();
+        getLocation();
+
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(location_activity.this, new String[]{
                     Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
@@ -53,11 +57,18 @@ public class location_activity extends AppCompatActivity implements LocationList
         binding.btnLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
+//                getLocation();
                 Toast.makeText(location_activity.this, "MLEKO", Toast.LENGTH_SHORT).show();
 
             }
         });
+
+        binding.btnMaps.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(location_activity.this, GoogleMaps_Activity.class));
+                }
+            });
     }
 
     public void getStepler(){
@@ -74,7 +85,7 @@ public class location_activity extends AppCompatActivity implements LocationList
 
     public void getLocation () {
         try {
-            Toast.makeText(location_activity.this, "KIWI", Toast.LENGTH_LONG).show();
+            //Toast.makeText(location_activity.this, "KIWI", Toast.LENGTH_LONG).show();
 
             locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -88,6 +99,8 @@ public class location_activity extends AppCompatActivity implements LocationList
                 return;
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
+
+
         }
         catch(Exception e){
             e.printStackTrace();
@@ -97,12 +110,22 @@ public class location_activity extends AppCompatActivity implements LocationList
 
     @Override
     public void onLocationChanged(@NonNull Location location) {
-        Toast.makeText(this, ""+location.getLatitude()+", "+location.getLongitude(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, ""+location.getLatitude()+", "+location.getLongitude(), Toast.LENGTH_LONG).show();
+
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             String address = addresses.get(0).getAddressLine(0);
             binding.TVlocation.setText(address);
+            Toast.makeText(this, ""+address, Toast.LENGTH_LONG).show();
+
+            // Store a string
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("lat", String.valueOf(location.getLatitude()));
+            editor.putString("lng", String.valueOf(location.getLongitude()));
+            editor.putString("address", String.valueOf(address));
+            editor.apply();
+
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -140,12 +163,7 @@ public class location_activity extends AppCompatActivity implements LocationList
             binding.TVdistance.setText(String.valueOf(decimalFormat.format(distance)));
 
         }
-        binding.btnMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(location_activity.this, GoogleMaps_Activity.class));
-            }
-        });
+
 
     }
 
