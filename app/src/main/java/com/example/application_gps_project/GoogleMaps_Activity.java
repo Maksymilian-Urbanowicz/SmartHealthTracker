@@ -73,20 +73,6 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
         mMap = googleMap;
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
 
-        // Sprawdź uprawnienia do dostępu do lokalizacji
-//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-//                == PackageManager.PERMISSION_GRANTED) {
-//            mMap.setMyLocationEnabled(true);
-//
-//            // Dodaj LocationListener do śledzenia zmian lokalizacji użytkownika
-//            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, this);
-//        } else {
-//            // Jeśli brak uprawnień, poproś użytkownika o nie
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-//                    LOCATION_PERMISSION_REQUEST_CODE);
-//        }
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         // Sprawdź uprawnienia do dostępu do lokalizacji
@@ -100,7 +86,7 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
                     double longitude = location.getLongitude();
 
                     // Ustaw odpowiedni zoom
-                    float zoomLevel = 21.0f; // Możesz dostosować wartość zoomu
+                    float zoomLevel = 19.0f; // Możesz dostosować wartość zoomu
                     LatLng markerPosition = new LatLng(latitude, longitude);
                     //mMap.addMarker(new MarkerOptions().position(markerPosition).title("Current location marker"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(markerPosition, zoomLevel));

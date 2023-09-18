@@ -54,15 +54,6 @@ public class location_activity extends AppCompatActivity implements  LocationLis
             },1);
         }
 
-        binding.btnLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                getLocation();
-                Toast.makeText(location_activity.this, "MLEKO", Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
         binding.btnMaps.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

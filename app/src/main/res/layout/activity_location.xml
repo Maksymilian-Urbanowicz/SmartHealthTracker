@@ -20,11 +20,7 @@
             android:layout_height="150dp"
             app:srcCompat="@drawable/smarthealthtracker" />
 
-        <Button
-            android:id="@+id/btnLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GET LOCATION" />
+
 
         <Button
             android:id="@+id/btnMaps"
@@ -41,12 +37,48 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:id="@+id/TVlocation2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Current Location:"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/TVlocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="lokalizacja"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="30sp" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp" />
+
+                <TextView
+                    android:id="@+id/TVsteper2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Steps today:"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="20sp" />
+
                 <TextView
                     android:id="@+id/TVsteper"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="kroki"
                     android:textAlignment="center"
+                    android:textColor="#FFFFFFFF"
                     android:textSize="30sp" />
 
                 <LinearLayout
@@ -60,6 +92,7 @@
                         android:layout_height="match_parent"
                         android:text="dystans"
                         android:textAlignment="center"
+                        android:textColor="#FFFFFF"
                         android:textSize="30sp" />
 
                     <TextView
@@ -68,16 +101,9 @@
                         android:layout_height="match_parent"
                         android:text="km"
                         android:textAlignment="center"
+                        android:textColor="#FFFFFF"
                         android:textSize="30sp" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/TVlocation"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="lokalizacja"
-                    android:textAlignment="center"
-                    android:textSize="30sp" />
 
             </LinearLayout>
         </ScrollView>

@@ -29,7 +29,8 @@
         app:layout_constraintStart_toEndOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.318"
-        app:srcCompat="@drawable/baseline_near_me_disabled"/>
+        app:srcCompat="@drawable/baseline_near_me_disabled"
+        app:backgroundTint="@color/dark_blue"/>
 <!--        app:srcCompat="@drawable/pin" />-->
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,25 +49,8 @@
         app:layout_constraintStart_toEndOf="@+id/map"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.384"
-        app:srcCompat="?attr/actionModeShareDrawable" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="1000dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="13dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toTopOf="@+id/map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.548"
-        app:layout_constraintStart_toEndOf="@+id/map"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.448" />
-<!--        app:srcCompat="@drawable/save" />-->
+        app:srcCompat="?attr/actionModeShareDrawable"
+        app:backgroundTint="@color/dark_blue"/>
 
     <Button
         android:id="@+id/button"
@@ -76,7 +60,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="180dp"
         android:text="WYZNACZ TRASĘ"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="@color/dark_blue"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
