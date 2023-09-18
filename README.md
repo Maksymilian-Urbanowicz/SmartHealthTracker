@@ -1,6 +1,6 @@
 # SmartHealthTracker
 
-![SmartHealthTracker Logo](link_do_logo.png)
+![SmartHealthTracker (1)](https://github.com/Maksymilian-Urbanowicz/SmartHealthTracker/assets/80683009/710af06c-5eba-4894-bbc0-709c23f591e1)
 
 SmartHealthTracker is a mobile application for Android that allows for comprehensive health tracking and offers a range of useful features. The app combines advanced health monitoring functions, hydration tracking, and assists in organizing meetings and navigation. It's a tool that makes it easy for you to take care of your health and maintain an active lifestyle.
 
