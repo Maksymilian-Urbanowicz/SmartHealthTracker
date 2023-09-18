@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#051D40"
     android:fitsSystemWindows="true"
     tools:context=".location_activity">
 
@@ -17,7 +18,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:srcCompat="@android:drawable/ic_dialog_map" />
+            app:srcCompat="@drawable/smarthealthtracker" />
 
         <Button
             android:id="@+id/btnLocation"
