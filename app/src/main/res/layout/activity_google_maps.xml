@@ -53,13 +53,13 @@
         app:backgroundTint="@color/dark_blue"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnFind_Route"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
         android:layout_marginTop="100dp"
         android:layout_marginBottom="180dp"
-        android:text="WYZNACZ TRASĘ"
+        android:text="FIND ROUTE"
         app:backgroundTint="@color/dark_blue"
         app:iconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,6 +67,51 @@
         app:layout_constraintTop_toBottomOf="@+id/map"
         app:rippleColor="@color/black" />
 
+    <LinearLayout
+        android:id="@+id/LLfind_Route"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/TEdest_From"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="From ..." />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/TEdest_TO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="To ..." />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSet_Route"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FIND ROUTE" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
