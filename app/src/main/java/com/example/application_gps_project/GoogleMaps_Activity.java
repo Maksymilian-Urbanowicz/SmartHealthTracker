@@ -232,6 +232,16 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
             mMap.clear(); // Wyczyść wszystkie markery na mapie
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(markerPosition, zoomLevel));
         }
+        // Oblicz dystans między aktualną lokalizacją a wybranym punktem
+        if (toLatLng != null) {
+            float[] distance = new float[1];
+            Location.distanceBetween(fromLatLng.latitude, fromLatLng.longitude, toLatLng.latitude, toLatLng.longitude, distance);
+            double distanceInKm = distance[0] / 1000.0; // Przeliczenie na kilometry
+            String distanceText = String.format("%.2f km", distanceInKm);
+
+            // Wyświetl dystans w Toast
+            Toast.makeText(this, "Dystans do celu: " + distanceText, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
