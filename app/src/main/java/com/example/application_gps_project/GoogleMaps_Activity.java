@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.application_gps_project.databinding.ActivityLocationBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -41,6 +40,7 @@ import com.google.maps.model.TravelMode;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReadyCallback, LocationListener {
     private LatLng fromLatLng = null;
@@ -48,19 +48,17 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
     private GoogleMap mMap;
     private LocationManager locationManager;
 
-    private ActivityLocationBinding binding;
-
     private FusedLocationProviderClient fusedLocationClient;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     private boolean isFollowLocation = false;
 
+    private boolean isOn = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
-        binding = ActivityLocationBinding.inflate(getLayoutInflater());
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -70,7 +68,8 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
             @Override
             public void onClick(View view) {
                 LinearLayout LLfindRoute = findViewById(R.id.LLfind_Route);
-                LLfindRoute.setVisibility(View.VISIBLE);
+                isOn = !isOn;
+                if(isOn==true) LLfindRoute.setVisibility(View.VISIBLE); else LLfindRoute.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -183,6 +182,26 @@ public class GoogleMaps_Activity extends AppCompatActivity implements OnMapReady
                 if (location != null) {
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
+
+                    Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+                    List<Address> addresses = null;
+                    try {
+                        addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String address = addresses.get(0).getAddressLine(0);
+
+                    FloatingActionButton FAB_GetCrLocalisation = findViewById(R.id.FAB_GetCrLocalisation);
+                    FAB_GetCrLocalisation.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            EditText TEdest_From = findViewById(R.id.TEdest_From);
+
+                            TEdest_From.setText(address);
+                        }
+                    });
+
 
                     // Ustaw odpowiedni zoom
                     float zoomLevel = 19.0f; // Możesz dostosować wartość zoomu
